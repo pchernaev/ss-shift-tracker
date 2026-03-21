@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="bg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Отчитане на дежурство</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <img
+      src="images/Logo_Student_Union_UE-Varna.png"
+      alt="Logo"
+      style="max-width: 130px; margin-bottom: 45px; margin-top: 20px"
+    />
+
+    <div class="container">
+      <h2>Отчитане на дежурство</h2>
+
+      <div class="form-wrapper">
+        <form id="dutyForm">
+          <div class="form-group">
+            <label for="studentName">Дежурен (Име и Фамилия)</label>
+            <select id="studentName" required>
+              <option value="" disabled selected>Изберете име...</option>
+            </select>
+          </div>
+
+          <div class="time-inputs">
+            <div class="form-group">
+              <label for="startTime">От час:</label>
+              <input type="time" id="startTime" required />
+            </div>
+            <div class="form-group">
+              <label for="endTime">До час:</label>
+              <input type="time" id="endTime" required />
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="action-wrapper">
+        <button type="submit" form="dutyForm">Запази дежурството</button>
+        <div id="status-message"></div>
+      </div>
+    </div>
+  </body>
+</html>
