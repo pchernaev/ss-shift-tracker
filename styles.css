@@ -1,18 +1,8 @@
 :root {
   --primary-color: #1c1c1c;
-  --bg-color: linear-gradient(
-    90deg,
-    rgba(137, 58, 180, 0.55) 0%,
-    rgba(253, 29, 29, 0.69) 51%,
-    rgba(252, 176, 69, 0.82) 100%
-  );
-  --card-bg: linear-gradient(
-    0deg,
-    rgba(255, 250, 232, 1) 0%,
-    rgb(255, 229, 234) 100%
-  );
+  --bg-color: linear-gradient(90deg, rgba(137, 58, 180, 0.55) 0%, rgba(253, 29, 29, 0.69) 51%, rgba(252, 176, 69, 0.82) 100%);
+  --card-bg: linear-gradient(0deg, rgba(255, 250, 232, 1) 0%, rgb(255, 229, 234) 100%);
   --text-color: #333;
-  --border-color: #ccc;
   --border-radius: 20px;
 }
 
@@ -21,13 +11,12 @@ body {
   background-image: var(--bg-color);
   color: var(--text-color);
   margin: 0;
-
-  padding: 40px 20px 10px 20px;
-
+  padding: 40px 20px 20px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
+  /* ПРОМЯНА 1: 100dvh (dynamic viewport height) - решава проблема с долната лента на Safari */
+  min-height: 100dvh; 
   box-sizing: border-box;
 }
 
@@ -36,33 +25,28 @@ body {
   padding: 40px 25px;
   border: none;
   border-radius: var(--border-radius);
-  box-shadow:
-    0 15px 50px rgba(0, 0, 0, 0.15),
-    0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  width: 90%;
+  width: 100%;
   max-width: 400px;
+  max-height: 450px;
+  
+  /* Разтягане на картата до долу */
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  margin-bottom: 20px;
 }
 
 h2 {
   text-align: center;
   color: #242424;
   margin-top: 0;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
   font-size: 1.6em;
   text-shadow: #b3b3b3 1px 3px 5px;
 }
 
 .form-wrapper {
-  width: 100%;
-  margin-top: 15px;
-}
-
-#dutyForm {
   width: 100%;
 }
 
@@ -77,8 +61,12 @@ label {
   font-size: 15px;
 }
 
+/* ПРОМЯНА 2: КРИТИЧНО ЗА IPHONE! Премахваме бъгавото сливане на полетата */
 select,
 input[type="time"] {
+  -webkit-appearance: none; 
+  appearance: none;
+  display: block;
   width: 100%;
   padding: 15px 18px;
   border-radius: 12px;
@@ -87,13 +75,14 @@ input[type="time"] {
   box-sizing: border-box;
   background-color: rgba(255, 255, 255, 0.7);
   color: var(--text-color);
+  border: 2px solid transparent; /* За да не трепти при кликване */
   box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
-  cursor: pointer;
+  min-height: 52px; /* Принудителна височина, за да не ги сплесква Safari */
 }
 
+/* Връщаме красивата стрелка само за падащото меню */
 select {
-  appearance: none;
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%231c1c1c%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat;
   background-position: right 18px top 50%;
@@ -111,16 +100,20 @@ input[type="time"]:focus {
 .time-inputs {
   display: flex;
   gap: 15px;
+  width: 100%;
 }
 
 .time-inputs .form-group {
   flex: 1;
   margin-bottom: 0;
+  min-width: 0; /* Още един фикс за Flexbox в iOS */
 }
 
+/* ПРОМЯНА 3: Закотвяме бутона стабилно на дъното */
 .action-wrapper {
   width: 100%;
-  margin-top: 35px;
+  margin-top: auto; /* Това избутва бутона до дъното на картата */
+  padding-top: 30px; 
 }
 
 button {
@@ -133,9 +126,7 @@ button {
   font-size: 17px;
   font-weight: bold;
   cursor: pointer;
-  transition:
-    all 0.3s ease,
-    transform 0.1s;
+  transition: all 0.3s ease, transform 0.1s;
 }
 
 button:hover {
@@ -154,9 +145,5 @@ button:active {
   min-height: 20px;
   font-size: 14px;
 }
-.success {
-  color: #28a745;
-}
-.error {
-  color: #dc3545;
-}
+.success { color: #28a745; }
+.error { color: #dc3545; }
