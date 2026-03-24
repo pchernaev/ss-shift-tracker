@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="bg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Класация - Студентски съвет</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <script src="../scripts/leaderboard.js" defer></script>
+  </head>
+  <body>
+    <div class="app-container">
+      <header class="header">
+        <a href="../index.html" class="back-link">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+          Назад
+        </a>
+        <h1>🏆 Класация</h1>
+      </header>
+
+      <section class="filters-section">
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all">Всичко</button>
+          <button class="filter-btn" data-filter="month">Този месец</button>
+          <button class="filter-btn" data-filter="week">Тази седмица</button>
+        </div>
+      </section>
+
+      <section class="leaderboard-list" id="leaderboardList"></section>
+    </div>
+  </body>
+</html>

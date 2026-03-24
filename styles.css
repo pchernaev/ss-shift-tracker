@@ -1,36 +1,61 @@
+/* =========================================
+   ОБЩИ ПРОМЕНЛИВИ И ФОН ЗА ЦЕЛИЯ САЙТ
+========================================= */
 :root {
+  /* Оригинални цветове (Форма за записване) */
   --primary-color: #1c1c1c;
-  --bg-color: linear-gradient(
+  --bg-gradient: linear-gradient(
     90deg,
     rgba(137, 58, 180, 0.55) 0%,
     rgba(253, 29, 29, 0.69) 51%,
     rgba(252, 176, 69, 0.82) 100%
   );
-  --card-bg: linear-gradient(
+  --card-gradient: linear-gradient(
     0deg,
     rgba(255, 250, 232, 1) 0%,
     rgb(255, 229, 234) 100%
   );
   --text-color: #333;
   --border-radius: 20px;
+
+  /* Нови цветове (Класация) */
+  --text-muted: #777777;
+  --accent-blue: #4a90e2;
+  --board-card-bg: rgba(
+    255,
+    255,
+    255,
+    0.85
+  ); /* Леко прозрачно бяло, за да прозира красивият фон */
+
+  /* Цветове за Топ 3 медали */
+  --gold: #ffd700;
+  --gold-bg: #fffbf0;
+  --silver: #c0c0c0;
+  --silver-bg: #f8f9fa;
+  --bronze: #cd7f32;
+  --bronze-bg: #fff5ee;
 }
 
 body {
   font-family: "Georgia", "Garamond", "Times New Roman", serif;
-  background-image: var(--bg-color);
+  background-image: var(--bg-gradient); /* Връщаме красивия ти фон! */
+  background-attachment: fixed; /* За да не се размазва при скролиране надолу */
   color: var(--text-color);
   margin: 0;
   padding: 40px 20px 20px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* ПРОМЯНА 1: 100dvh (dynamic viewport height) - решава проблема с долната лента на Safari */
   min-height: 100dvh;
   box-sizing: border-box;
 }
 
+/* =========================================
+   СТРАНИЦА 1: ФОРМА ЗА ЗАПИСВАНЕ (Оригинал)
+========================================= */
 .container {
-  background-image: var(--card-bg);
+  background-image: var(--card-gradient);
   padding: 40px 25px;
   border: none;
   border-radius: var(--border-radius);
@@ -41,8 +66,6 @@ body {
   width: 100%;
   max-width: 400px;
   max-height: 450px;
-
-  /* Разтягане на картата до долу */
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -60,11 +83,9 @@ h2 {
 .form-wrapper {
   width: 100%;
 }
-
 .form-group {
   margin-bottom: 25px;
 }
-
 label {
   display: block;
   margin-bottom: 9px;
@@ -72,7 +93,6 @@ label {
   font-size: 15px;
 }
 
-/* ПРОМЯНА 2: КРИТИЧНО ЗА IPHONE! Премахваме бъгавото сливане на полетата */
 select,
 input[type="time"] {
   -webkit-appearance: none;
@@ -86,13 +106,12 @@ input[type="time"] {
   box-sizing: border-box;
   background-color: rgba(255, 255, 255, 0.7);
   color: var(--text-color);
-  border: 2px solid transparent; /* За да не трепти при кликване */
+  border: 2px solid transparent;
   box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
-  min-height: 52px; /* Принудителна височина, за да не ги сплесква Safari */
+  min-height: 52px;
 }
 
-/* Връщаме красивата стрелка само за падащото меню */
 select {
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%231c1c1c%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat;
@@ -113,17 +132,15 @@ input[type="time"]:focus {
   gap: 15px;
   width: 100%;
 }
-
 .time-inputs .form-group {
   flex: 1;
   margin-bottom: 0;
-  min-width: 0; /* Още един фикс за Flexbox в iOS */
+  min-width: 0;
 }
 
-/* ПРОМЯНА 3: Закотвяме бутона стабилно на дъното */
 .action-wrapper {
   width: 100%;
-  margin-top: auto; /* Това избутва бутона до дъното на картата */
+  margin-top: auto;
   padding-top: 30px;
 }
 
@@ -163,4 +180,307 @@ button:active {
 }
 .error {
   color: #dc3545;
+}
+
+/* =========================================
+   СТРАНИЦА 2: КЛАСАЦИЯ (Mobile First)
+========================================= */
+.app-container {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif; /* Модерен шрифт за списъка */
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #1c1c1c;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  align-self: flex-start; /* Заковава линка плътно вляво и НАД заглавието */
+  margin-bottom: 12px; /* Създава въздух между линка и заглавието */
+}
+
+.header h1 {
+  margin: 0 0 5px 0;
+  font-size: 26px;
+  color: #1c1c1c;
+  text-shadow: none;
+  text-align: center; /* Държи заглавието центрирано */
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: #1c1c1c;
+  text-align: center;
+}
+
+/* Филтри */
+.filters-section {
+  margin-bottom: 20px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 6px; /* Свиваме разстоянието между бутоните */
+  width: 100%;
+}
+
+.filter-btn {
+  flex: 1; /* Гарантира, че трите бутона си разделят екрана абсолютно по равно */
+  background-color: var(--board-card-bg);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: var(--text-color);
+  padding: 10px 2px; /* Намаляваме излишния празен обем вътре в бутона */
+  border-radius: 20px;
+  font-size: 12px; /* Ултра-мобилен размер по подразбиране (Mobile First) */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap; /* Гарантира, че текстът няма да се счупи на два реда */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter-btn.active {
+  background-color: var(--accent-blue);
+  color: white;
+  border-color: var(--accent-blue);
+  box-shadow: 0 4px 6px rgba(74, 144, 226, 0.3);
+}
+
+/* Списък с класация */
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.board-item {
+  display: flex;
+  align-items: center;
+  background-color: var(--board-card-bg);
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+  backdrop-filter: blur(
+    10px
+  ); /* Придава лек "стъклен" ефект на картите върху градиента */
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.board-item:active {
+  transform: scale(0.98);
+}
+
+.rank-badge {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 18px;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--text-muted);
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.member-info {
+  flex-grow: 1;
+}
+.member-name {
+  margin: 0 0 3px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+.member-role {
+  font-size: 12px;
+  color: var(--text-muted);
+  display: block;
+}
+
+.score-info {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+.hours {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--accent-blue);
+}
+.hours-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Дизайн за Топ 3 */
+.rank-1 {
+  background-color: var(--gold-bg);
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  transform: scale(1.02);
+}
+.rank-1 .rank-badge {
+  background-color: var(--gold);
+  font-size: 22px;
+  color: #fff;
+}
+.rank-1 .hours {
+  color: #d4af37;
+  font-size: 22px;
+}
+
+.rank-2 {
+  background-color: var(--silver-bg);
+  border: 1px solid rgba(192, 192, 192, 0.5);
+}
+.rank-2 .rank-badge {
+  background-color: var(--silver);
+  font-size: 20px;
+  color: #fff;
+}
+.rank-2 .hours {
+  color: #808080;
+}
+
+.rank-3 {
+  background-color: var(--bronze-bg);
+  border: 1px solid rgba(205, 127, 50, 0.5);
+}
+.rank-3 .rank-badge {
+  background-color: var(--bronze);
+  color: white;
+  font-size: 18px;
+}
+.rank-3 .hours {
+  color: #a0522d;
+}
+
+.rank-1 .member-name {
+  color: #b8860b;
+  font-size: 18px; /* Леко по-голямо име за шампиона */
+}
+
+/* Цветът на името за 2-ро място (Тъмно сребро/графит) */
+.rank-2 .member-name {
+  color: #555555;
+  font-size: 17px;
+}
+
+/* Цветът на името за 3-то място (Тъмен бронз) */
+.rank-3 .member-name {
+  color: #8b4513;
+  font-size: 17px;
+}
+
+.hamburger-menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Самият бутон */
+.hamburger-btn {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.hamburger-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* Падащият списък */
+.dropdown-menu {
+  position: absolute;
+  top: 55px;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  min-width: 180px;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+
+  /* Скриване по подразбиране с анимация */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Класът, който показва менюто */
+.dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Елементите в менюто */
+.menu-item {
+  padding: 12px 20px;
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+
+.menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 768px) {
+  .app-container {
+    padding: 40px 20px;
+  }
+  .board-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@media (min-width: 375px) {
+  .filter-btn {
+    font-size: 13px;
+    padding: 10px 5px;
+  }
 }

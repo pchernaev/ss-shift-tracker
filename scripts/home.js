@@ -3,6 +3,20 @@ const apiUrl = "https://ss-core.onrender.com";
 document.addEventListener("DOMContentLoaded", () => {
   loadMembers();
   setCurrentTimeForEndTime();
+
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const dropdownMenu = document.getElementById("dropdownMenu");
+
+  hamburgerBtn.addEventListener("click", (event) => {
+    event.stopPropagation();
+    dropdownMenu.classList.toggle("show");
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!dropdownMenu.contains(event.target)) {
+      dropdownMenu.classList.remove("show");
+    }
+  });
 });
 
 async function loadMembers() {

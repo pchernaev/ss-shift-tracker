@@ -8,15 +8,36 @@
     />
     <title>Отчитане на дежурство</title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" defer></script>
+    <script src="./scripts/home.js" defer></script>
   </head>
   <body>
+    <div class="hamburger-menu">
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Меню">
+        <svg
+          viewBox="0 0 24 24"
+          width="26"
+          height="26"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <nav class="dropdown-menu" id="dropdownMenu">
+        <a href="./pages/leaderboard.html" class="menu-item">🏆 Класация</a>
+      </nav>
+    </div>
     <img
       src="images/Logo_Student_Union_UE-Varna.png"
       alt="Logo"
       style="max-width: 130px; margin-bottom: 45px; margin-top: 20px"
     />
-
     <div class="container">
       <h2>Отчитане на дежурство</h2>
 
