@@ -137,6 +137,12 @@ input[type="time"]:focus {
   margin-bottom: 0;
   min-width: 0;
 }
+/* #startTime {
+  height: 40px;
+}
+#endTime {
+  height: 40px;
+} */
 
 .action-wrapper {
   width: 100%;
