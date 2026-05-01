@@ -46,10 +46,15 @@ async function loadMembers() {
 function setCurrentTimeForEndTime() {
   const now = new Date();
 
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
   const hours = String(now.getHours()).padStart(2, "0");
   const minutes = String(now.getMinutes()).padStart(2, "0");
 
-  document.getElementById("endTime").value = `${hours}:${minutes}`;
+  document.getElementById(
+    "endTime"
+  ).value = `${year}-${month}-${day}T${hours}:${minutes}`;
 }
 
 document
@@ -63,14 +68,14 @@ document
     const statusMessage = document.getElementById("status-message");
 
     if (startTime >= endTime) {
-      statusMessage.textContent = "Началният час трябва да е преди крайния!";
+      statusMessage.textContent =
+        "Началната дата и час трябва да са преди крайните!";
       statusMessage.className = "error";
       return;
     }
 
-    const today = new Date().toISOString().split("T")[0];
-    const startDateTime = `${today}T${startTime}:00`;
-    const endDateTime = `${today}T${endTime}:00`;
+    const startDateTime = `${startTime}:00`;
+    const endDateTime = `${endTime}:00`;
 
     try {
       const response = await fetch(`${apiUrl}/api/shifts/log`, {
